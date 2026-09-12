@@ -30,7 +30,7 @@ $options = [
 $fallbackTomato = [
     'id' => 3692,
     'userid' => 1001,
-    'title' => 'wash dishes',
+    'title' => 'washzzz dishes',
     'tomdate' => '2025-06-09',
     'datestring' => '2025-06-09',
     'timestamp' => '1749441600',
@@ -48,7 +48,7 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
     // 5. Execute your exact query
-    $stmt = $pdo->prepare("SELECT * FROM tomato ORDER BY id DESC LIMIT 1");
+    $stmt = $pdo->prepare("SELECT * FROM tomato ORDER BY id DESC LIMIT 20");
     $stmt->execute();
     $tomatoData = $stmt->fetch();
 
@@ -60,7 +60,12 @@ try {
     }
 
 } catch (\PDOException $e) {
-    // Return a usable fallback payload inside an array if the database is down
-    http_response_code(200);
-    echo json_encode([$fallbackTomato]); // <-- Added array brackets here
+    // Temporarily expose the real error to React so we can see what failed
+    http_response_code(500);
+    echo json_encode([
+        'id' => 0,
+        'title' => 'DATABASE ERROR DETECTED',
+        'count' => 0,
+        'category' => $e->getMessage() // This will display the actual SQL error message in your table
+    ]);
 }
