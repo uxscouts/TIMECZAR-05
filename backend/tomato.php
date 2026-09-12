@@ -48,7 +48,7 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
     // 5. Execute your exact query
-    $stmt = $pdo->prepare("SELECT * FROM tomato ORDER BY id DESC LIMIT 20");
+    $stmt = $pdo->prepare("SELECT * FROM tomato LIMIT 10");
     $stmt->execute();
     $tomatoData = $stmt->fetch();
 
