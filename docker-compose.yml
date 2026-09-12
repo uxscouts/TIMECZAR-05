@@ -2,10 +2,10 @@ services:
   mysql:
     image: 'mysql:8.0'
     restart: always
-    command: --max_allowed_packet=256M
+    command: --max_allowed_packet=256M --sql-mode="NO_ENGINE_SUBSTITUTION"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: my_database
+      MYSQL_DATABASE: tomato220
       MYSQL_USER: dev_user
       MYSQL_PASSWORD: dev_password
     ports:
@@ -26,7 +26,7 @@ services:
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
-      - DB_DATABASE=my_database
+      - DB_DATABASE=tomato220
       - DB_USERNAME=dev_user
       - DB_PASSWORD=dev_password
     depends_on:

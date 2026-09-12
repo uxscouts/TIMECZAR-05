@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // 4. Connect to the database using your docker-compose environment variables
 $host = getenv('DB_HOST') ?: 'mysql';
-$db   = getenv('DB_DATABASE') ?: 'my_database';
+$db   = getenv('DB_DATABASE') ?: 'tomato220';
 $user = getenv('DB_USERNAME') ?: 'dev_user';
 $pass = getenv('DB_PASSWORD') ?: 'dev_password';
 $charset = 'utf8mb4';
@@ -47,7 +47,7 @@ $fallbackTomato = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
-    $stmt = $pdo->prepare("SELECT * FROM tomato LIMIT 10");
+    $stmt = $pdo->prepare("SELECT * FROM tomato ORDER BY id DESC LIMIT 10");
     $stmt->execute();
     
     // FORCE the engine to return associative arrays explicitly

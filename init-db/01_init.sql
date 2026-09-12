@@ -1,5 +1,5 @@
 
-USE `my_database`;
+USE `tomato220`;
 
 CREATE TABLE `tomato` (
   `id` int NOT NULL,

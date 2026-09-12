@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS `tomato220`;
+USE `tomato220`;
