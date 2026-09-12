@@ -2,6 +2,7 @@ services:
   mysql:
     image: 'mysql:8.0'
     restart: always
+    command: --max_allowed_packet=256M
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: my_database

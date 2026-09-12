@@ -47,25 +47,33 @@ $fallbackTomato = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
-    // 5. Execute your exact query
     $stmt = $pdo->prepare("SELECT * FROM tomato LIMIT 10");
     $stmt->execute();
-    $tomatoData = $stmt->fetch();
+    
+    // FORCE the engine to return associative arrays explicitly
+    $tomatoData = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
-    // 6. Send the data back to React wrapped inside a JSON Array []
-    if ($tomatoData) {
-        echo json_encode([$tomatoData]); // <-- Added array brackets here
+    // Check if it is an array and actually has data in it
+    if (!empty($tomatoData)) {
+        echo json_encode($tomatoData); 
     } else {
-        echo json_encode([$fallbackTomato]); // <-- Added array brackets here
+        // If the database table is completely empty, send the fallback
+        echo json_encode([$fallbackTomato]);
     }
 
 } catch (\PDOException $e) {
-    // Temporarily expose the real error to React so we can see what failed
+    http_response_code(200);
+    echo json_encode([$fallbackTomato]);
+}
+
+/*
+} catch (\PDOException $e) {
+    
     http_response_code(500);
     echo json_encode([
         'id' => 0,
         'title' => 'DATABASE ERROR DETECTED',
         'count' => 0,
-        'category' => $e->getMessage() // This will display the actual SQL error message in your table
-    ]);
+        'category' => $e->getMessage() 
 }
+*/
