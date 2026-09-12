@@ -38,12 +38,12 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
     // Use FETCHALL to get up to 10 users as an array
-    $stmt = $pdo->prepare("SELECT * FROM `users` LIMIT 10");
+    $stmt = $pdo->prepare("SELECT * FROM `tomato` LIMIT 10");
     $stmt->execute();
-    $userData = $stmt->fetchAll(); 
+    $tomatoData = $stmt->fetchAll(); 
 
-    if (!empty($userData)) {
-        echo json_encode($userData);
+    if (!empty($tomatoData)) {
+        echo json_encode($tomatoData);
     } else {
         // Table is empty, return empty array so React doesn't crash
         echo json_encode([]); 

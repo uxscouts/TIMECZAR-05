@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Users3 from './components/Users3';
+import Tomato from './components/Tomato';
 import './App.css'
 
 function App() {
@@ -7,8 +8,10 @@ function App() {
 
   return (
     <>
-      <p>Something</p>
+      <p>User3 component</p>
       <Users3/>
+      <p>Tomato component</p>
+      <Tomato/>
     </>
   )
 }
